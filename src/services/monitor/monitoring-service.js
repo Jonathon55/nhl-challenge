@@ -1,6 +1,7 @@
 import cron from 'node-cron';
 import { fetchNHLData } from '../nhl/index.js'
 import { createClient } from "@redis/client";
+import config from '../../../config/index.js'
 
 export class MonitoringService {
  constructor(redisClient = null, cronSchedule = '* * * * *', autoMonitor = true) {
@@ -38,7 +39,7 @@ export class MonitoringService {
 
   async initializeRedisClient() {
     if (!this.publisher) {
-      this.publisher = createClient({ host: "172.24.15.50", port: 6379 });
+      this.publisher = createClient({ host: config.REDIS_HOST, port: config.REDIS_PORT });
 
       this.publisher.on("error", (err) => {
         console.error("Redis client encountered an error:", err);

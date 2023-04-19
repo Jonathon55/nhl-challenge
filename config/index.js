@@ -7,6 +7,8 @@ const {
   DATABASE_USERNAME,
   DATABASE_PASSWORD,
   DATABASE_DBNAME,
+  REDIS_HOST,
+  REDIS_PORT 
 } = process.env;
 
 export default {
@@ -14,4 +16,6 @@ export default {
   DATABASE_USERNAME,
   DATABASE_PASSWORD,
   DATABASE_DBNAME,
+  REDIS_HOST,
+  REDIS_PORT 
 }
