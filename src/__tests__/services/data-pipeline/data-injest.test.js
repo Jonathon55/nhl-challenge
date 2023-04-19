@@ -1,6 +1,6 @@
 
-import { DataIngestionService } from '../../../services/data-pipeline/data-injestor';
-import { DataPipeline } from '../../../services/data-pipeline/index';
+import { DataIngestionService } from '../../../services/data-pipeline/data-injestor.js';
+import { DataPipeline } from '../../../services/data-pipeline/index.js';
 import { createClient } from 'redis-mock';
 
 jest.mock('../../../services/data-pipeline/index');

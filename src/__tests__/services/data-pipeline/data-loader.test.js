@@ -1,5 +1,5 @@
 import { DataLoader } from "../../../services/data-pipeline/data-loader.js";
-import { Nhl } from "../../../sequelize/model";
+import { Nhl } from "../../../sequelize/model.js";
 
 jest.mock("../../../sequelize/model");
 

@@ -1,4 +1,4 @@
-import { DataPipeline } from './index';
+import { DataPipeline } from './index.js';
 class DataIngestionService {
   constructor(redisClient) {
     this.redisClient = redisClient;

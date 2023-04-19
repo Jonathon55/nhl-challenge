@@ -1,5 +1,5 @@
-import { MonitoringService } from '../src/services/monitor/monitoring-service';
-import queryGame from '../src/services/query/game';
+import { MonitoringService } from '../src/services/monitor/monitoring-service.js';
+import queryGame from '../src/services/query/game.js';
 
 const command = process.argv[2];
 

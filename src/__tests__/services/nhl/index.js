@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { fetchNHLData } from '../../../services/nhl/index';
+import { fetchNHLData } from '../../../services/nhl/index.js';
 
 const mockAxios = new MockAdapter(axios);
 

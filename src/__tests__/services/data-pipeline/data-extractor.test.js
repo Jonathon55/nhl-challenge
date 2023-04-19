@@ -1,5 +1,5 @@
-import { DataExtractor } from '../../../services/data-pipeline/data-extractor';
-import { fetchNHLData } from '../../../services/nhl/index';
+import { DataExtractor } from '../../../services/data-pipeline/data-extractor.js';
+import { fetchNHLData } from '../../../services/nhl/index.js';
 
 jest.mock('../../../services/nhl/index');
 

@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import redis from 'redis';
-import { fetchNHLData } from '../nhl/index'
+import { fetchNHLData } from '../nhl/index.js'
 
 export class MonitoringService {
   constructor(redisClient = null, cronSchedule = '* * * * *', autoMonitor = true) {

@@ -1,7 +1,7 @@
-import { DataPipeline } from '../../../services/data-pipeline/index';
-import { DataExtractor } from "../../../services/data-pipeline/data-extractor";
-import { DataTransformer } from '../../../services/data-pipeline/data-transformer';
-import { DataLoader } from '../../../services/data-pipeline/data-loader';
+import { DataPipeline } from '../../../services/data-pipeline/index.js';
+import { DataExtractor } from "../../../services/data-pipeline/data-extractor.js";
+import { DataTransformer } from '../../../services/data-pipeline/data-transformer.js';
+import { DataLoader } from '../../../services/data-pipeline/data-loader.js';
 
 jest.mock('../../../services/data-pipeline/data-extractor');
 jest.mock('../../../services/data-pipeline/data-transformer');

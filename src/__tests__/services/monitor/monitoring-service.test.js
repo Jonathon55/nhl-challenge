@@ -1,4 +1,4 @@
-import { MonitoringService } from '../../../services/monitor/monitoring-service';
+import { MonitoringService } from '../../../services/monitor/monitoring-service.js';
 import { createClient } from 'redis';
 
 jest.mock('redis', () => {

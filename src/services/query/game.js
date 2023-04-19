@@ -1,4 +1,4 @@
-import { DataLoader } from '../data-pipeline/data-loader';
+import { DataLoader } from '../data-pipeline/data-loader.js';
 
 async function queryGame(gameId) {
   const dataLoader = new DataLoader();

@@ -1,4 +1,4 @@
-import { fetchNHLData } from '../nhl/index';
+import { fetchNHLData } from '../nhl/index.js';
 class DataExtractor {
   async extract(gameId) {
     const gameEndpoint = `/game/${gameId}/feed/live`;
