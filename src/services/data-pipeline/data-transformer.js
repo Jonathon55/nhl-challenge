@@ -52,9 +52,6 @@ class DataTransformer {
       ...this.parsePlayerObject(awayPlayersObject, gameId, homeTeam),
     ];
 
-  
-    console.log(JSON.stringify(transformedData), `Transformed Results`);
-
     return transformedData;
   }
 }

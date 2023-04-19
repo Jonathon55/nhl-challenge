@@ -44,6 +44,9 @@ A Suite of Data Pipeline Features using NHL Game Data
 - Configurable Environments
 - Add much more comments, and functional level documentation
 - Modularize Better
+- More time to review own code
+- Functionality to interact with DB
+- Better, functional logging
 
 ## Run tests
 This will run jest tests:

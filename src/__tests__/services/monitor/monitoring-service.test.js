@@ -8,19 +8,20 @@ jest.mock('redis', () => {
 describe('MonitoringService', () => {
   let monitoringService;
 
-  beforeEach(() => {
-    const redisClient = createClient();
+  beforeEach(async () => {
+    const redisClient = createClient(); 
     monitoringService = new MonitoringService(redisClient, '* * * * * *');
+    await monitoringService.initializeRedisClient();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     monitoringService.stopMonitoring();
   });
 
-  test('should start monitoring for game status changes', () => {
+  test('should start monitoring for game status changes', async () => {
     jest.spyOn(monitoringService, 'startMonitoring');
-    monitoringService.startMonitoring();
-    expect(monitoringService.startMonitoring).toHaveBeenCalled();
+    await monitoringService.startMonitoring();
+    expect(await monitoringService.startMonitoring).toHaveBeenCalled();
   });
   
   test('should send a message via Redis when the game status changes to live', async () => {
@@ -44,8 +45,14 @@ describe('MonitoringService', () => {
     monitoringService.publisher.publish = jest.fn();
 
     // Start monitoring and wait for a tick
-    monitoringService.startMonitoring();
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+   await monitoringService.startMonitoring();
+
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        monitoringService.stopMonitoring(); // Manually stop the cron job
+        resolve();
+      }, 1500);
+    });
 
     expect(monitoringService.publisher.publish).toHaveBeenCalledWith(
       'live_games',

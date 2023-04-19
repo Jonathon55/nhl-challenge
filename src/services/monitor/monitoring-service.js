@@ -10,14 +10,14 @@ export class MonitoringService {
     this.autoMonitor = autoMonitor;
   }
 
-  startMonitoring() {
+  async startMonitoring() {
     if (!this.schedule) {
       //check for livegames first then go about regular business
       this.checkLiveGames().then(() => {
         console.log("Starting cron job...");
-        this.schedule = cron.schedule(this.cronSchedule, () => {
+        this.schedule = cron.schedule(this.cronSchedule, async () => {
           console.log("Checking for live games...");
-          this.checkLiveGames();
+          await this.checkLiveGames();
         });
       });
     } 

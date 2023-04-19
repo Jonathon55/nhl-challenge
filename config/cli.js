@@ -11,12 +11,12 @@ const cliTool = async () => {
     case 'monitor-nhl':
     const monitorNHL = new MonitoringService();
     await monitorNHL.initializeRedisClient();
-    monitorNHL.startMonitoring();
+    await monitorNHL.startMonitoring();
       break;
     case 'monitor-nhl:live':
       const monitorNHLLive = new MonitoringService(null, '* * * * *', false);
       await monitorNHLLive.initializeRedisClient();
-      monitorNHLLive.checkLiveGames();
+      await monitorNHLLive.checkLiveGames();
       break;
     case 'monitor-nhl:game':
       const gameId = process.argv[3].split(':')[0];
@@ -24,7 +24,6 @@ const cliTool = async () => {
       break;
     case 'ingest-season-data':
       const season = process.argv[3];
-      console.log(season, "season")
       if (!season) {
         console.error('Please provide a season');
         process.exit(1);
