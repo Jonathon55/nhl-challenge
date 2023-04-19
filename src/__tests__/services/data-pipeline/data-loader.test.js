@@ -56,5 +56,3 @@ describe("DataLoader", () => {
     expect(result).toEqual(mockData);
   });
 });
-
-

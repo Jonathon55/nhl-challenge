@@ -3,16 +3,19 @@ import redis from 'redis';
 import { fetchNHLData } from '../nhl/index'
 
 export class MonitoringService {
-  constructor(redisClient, cronSchedule = '* * * * *') {
+  constructor(redisClient = null, cronSchedule = '* * * * *', autoMonitor = true) {
     this.schedule = null;
     this.publisher = redisClient || redis.createClient();
-    this.cronSchedule = cronSchedule
+    this.cronSchedule = cronSchedule;
+    this.autoMonitor = autoMonitor;
   }
 
   startMonitoring() {
     if (!this.schedule) {
       this.schedule = cron.schedule(this.cronSchedule, () => {
+
         console.log('Checking for live games...');
+
         this.checkLiveGames();
       });
     } 
@@ -43,15 +46,19 @@ export class MonitoringService {
   async checkLiveGames() {
     try {
       const games = await this.fetchGames();
+
+      let liveGamesFound = false;
+
       if(!games.length) {
         console.log("No Games Today");
-        //TODO fix exit
       }
       games.forEach(game => {
         const gameState = game.status.abstractGameState;
-
+       
         if (gameState === 'Live') {   
           console.log(`Game ${game.gamePk} is live!`);
+          liveGamesFound = true;
+
           //Trigger Feature two
           this.publisher.publish('live_games', JSON.stringify({ action: 'start', gamePk: game.gamePk }));
         } 
@@ -61,9 +68,14 @@ export class MonitoringService {
           }
         });
 
+        if (!this.autoMonitor && !liveGamesFound) {
+            console.log("No live games found, stopping the process.");
+            process.exit(0);
+        }
+
     } catch (error) {
       console.error('Error fetching schedule:', error.message);
-      process.exit();
+      process.exit("Error, Service Terminated");
     }
   }
 }

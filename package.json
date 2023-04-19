@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "db:migrate-up" : "node src/sequelize/sync.js",
+    "start": "node config/cli.js"
   },
   "type": "module",
   "keywords": [],

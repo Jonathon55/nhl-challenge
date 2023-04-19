@@ -9,7 +9,7 @@ const {
   DATABASE_DBNAME,
 } = process.env;
 
-export {
+export default {
   DATABASE_HOSTNAME,
   DATABASE_USERNAME,
   DATABASE_PASSWORD,

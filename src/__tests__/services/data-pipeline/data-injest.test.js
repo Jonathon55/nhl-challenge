@@ -3,7 +3,7 @@ import { DataIngestionService } from '../../../services/data-pipeline/data-injes
 import { DataPipeline } from '../../../services/data-pipeline/index';
 import { createClient } from 'redis-mock';
 
-jest.mock('../services/data-pipeline/index');
+jest.mock('../../../services/data-pipeline/index');
 
 describe('DataIngestionService', () => {
   let dataIngestionService;
