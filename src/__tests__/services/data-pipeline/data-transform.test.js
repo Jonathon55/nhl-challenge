@@ -1,4 +1,4 @@
-import { DataTransformer } from "../src/dataTransformer";
+import { DataTransformer } from "../../../services/data-pipeline/data-transformer";
 
 describe("DataTransformer", () => {
   const dataTransformer = new DataTransformer();

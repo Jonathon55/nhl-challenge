@@ -1,7 +1,7 @@
 
 import { DataIngestionService } from '../../../services/data-pipeline/data-injestor';
 import { DataPipeline } from '../../../services/data-pipeline/index';
-import redis  from 'redis-mock';
+import { createClient } from 'redis-mock';
 
 jest.mock('../services/data-pipeline/index');
 
@@ -10,7 +10,7 @@ describe('DataIngestionService', () => {
   let redisClient;
 
   beforeEach(() => {
-    redisClient = redis.createClient();
+    redisClient = createClient();
     dataIngestionService = new DataIngestionService(redisClient);
   });
 

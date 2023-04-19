@@ -1,17 +1,16 @@
-import { MonitoringService }  from '../../../services/monitor/';
-import redis from 'redis';
+import { MonitoringService } from '../../../services/monitor/monitoring-service';
+import { createClient } from 'redis';
 
 jest.mock('redis', () => {
   return require('redis-mock');
 });
 
-
 describe('MonitoringService', () => {
   let monitoringService;
 
   beforeEach(() => {
-    const redisClient = redis.createClient();
-    monitoringService = new MonitoringService(redisClient);
+    const redisClient = createClient();
+    monitoringService = new MonitoringService(redisClient, '* * * * * *');
   });
 
   afterEach(() => {
@@ -25,7 +24,7 @@ describe('MonitoringService', () => {
   });
   
   test('should send a message via Redis when the game status changes to live', async () => {
-    const gameStatus = 'live';
+    const gameStatus = 'Live';
     const gameId = 12345;
 
     // mock the NHL API response to simulate a live game
@@ -42,17 +41,17 @@ describe('MonitoringService', () => {
     });
 
     // Mock the Redis publish method to verify that it's called
-    monitoringService.redisClient.publish = jest.fn();
+    monitoringService.publisher.publish = jest.fn();
 
     // Start monitoring and wait for a tick
     monitoringService.startMonitoring();
-    await new Promise((resolve) => setTimeout(resolve, monitoringService.interval + 100));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    expect(monitoringService.redisClient.publish).toHaveBeenCalledWith(
-      'gameStatus',
+    expect(monitoringService.publisher.publish).toHaveBeenCalledWith(
+      'live_games',
       JSON.stringify({
+        action: "start",
         gamePk: gameId,
-        status: gameStatus,
       }),
     );
   });
