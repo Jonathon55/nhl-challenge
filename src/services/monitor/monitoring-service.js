@@ -1,22 +1,24 @@
 import cron from 'node-cron';
-import redis from 'redis';
 import { fetchNHLData } from '../nhl/index.js'
+import { createClient } from "@redis/client";
 
 export class MonitoringService {
-  constructor(redisClient = null, cronSchedule = '* * * * *', autoMonitor = true) {
+ constructor(redisClient = null, cronSchedule = '* * * * *', autoMonitor = true) {
     this.schedule = null;
-    this.publisher = redisClient || redis.createClient();
+    this.publisher = redisClient;
     this.cronSchedule = cronSchedule;
     this.autoMonitor = autoMonitor;
   }
 
   startMonitoring() {
     if (!this.schedule) {
-      this.schedule = cron.schedule(this.cronSchedule, () => {
-
-        console.log('Checking for live games...');
-
-        this.checkLiveGames();
+      //check for livegames first then go about regular business
+      this.checkLiveGames().then(() => {
+        console.log("Starting cron job...");
+        this.schedule = cron.schedule(this.cronSchedule, () => {
+          console.log("Checking for live games...");
+          this.checkLiveGames();
+        });
       });
     } 
     else {
@@ -33,11 +35,33 @@ export class MonitoringService {
       console.log('Monitoring service is not running.');
     }
   }
+
+  async initializeRedisClient() {
+    if (!this.publisher) {
+      this.publisher = createClient({ host: "172.24.15.50", port: 6379 });
+
+      this.publisher.on("error", (err) => {
+        console.error("Redis client encountered an error:", err);
+      });
+
+      try {
+        await this.publisher.connect();
+        console.log("Redis client is ready.");
+      } catch (err) {
+        console.error("Error connecting to Redis:", err);
+      }
+    }
+  }
   
   async fetchGames() {
     try {
       const response = await fetchNHLData(`schedule?expand=schedule.linescore`);
-      return response.data.dates.length > 0 ? response.data.dates[0].games : [];
+      if (response && response.dates) {
+        return response.dates.length > 0 ? response.dates[0].games : [];
+      } else {
+        console.error("Unexpected response structure");
+        return [];
+      }
     } catch (error) {  
       console.error('Error fetching schedule:', error.message);      
     }    
@@ -54,7 +78,6 @@ export class MonitoringService {
       }
       games.forEach(game => {
         const gameState = game.status.abstractGameState;
-       
         if (gameState === 'Live') {   
           console.log(`Game ${game.gamePk} is live!`);
           liveGamesFound = true;

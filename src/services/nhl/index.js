@@ -4,7 +4,7 @@ const NHL_API_URL = 'https://statsapi.web.nhl.com/api/v1';
 
 export const fetchNHLData = async (endpoint) => {
   try {
-    const response = await axios.get(`${NHL_API_URL}${endpoint}`);
+    const response = await axios.get(`${NHL_API_URL}/${endpoint}`);
     const data = response.data;
     return data;
   } catch (error) {

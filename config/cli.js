@@ -5,20 +5,26 @@ const command = process.argv[2];
 
 //handles our cli arguments
 // TODO: Clean up
-switch (command) {
-  case 'monitor-nhl':
-  const monitorNHL = new MonitoringService();
-  monitorNHL.startMonitoring();
-    break;
-  case 'monitor-nhl:live':
-    const monitorNHLLive = new MonitoringService(null, '* * * * *', false);
-    monitorNHLLive.checkLiveGames();
-    break;
-  case 'query-game':
-    const gameId = process.argv[3].split(':')[1];
-    queryGame(gameId);
-    break;
-  default:
-    console.error('Unknown command:', command);
-    process.exit(1);
+const cliTool = async () => {
+  switch (command) {
+    case 'monitor-nhl':
+    const monitorNHL = new MonitoringService();
+    await monitorNHL.initializeRedisClient();
+    monitorNHL.startMonitoring();
+      break;
+    case 'monitor-nhl:live':
+      const monitorNHLLive = new MonitoringService(null, '* * * * *', false);
+      await monitorNHLLive.initializeRedisClient();
+      monitorNHLLive.checkLiveGames();
+      break;
+    case 'monitor-nhl:game':
+      const gameId = process.argv[3].split(':')[0];
+      queryGame(gameId);
+      break;
+    default:
+      console.error('Unknown command:', command);
+      process.exit(1);
+  }
 }
+cliTool();
+  
