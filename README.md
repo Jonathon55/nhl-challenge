@@ -28,6 +28,11 @@ A Suite of Data Pipeline Features using NHL Game Data
 ## Feature 3: Can Query Database for Game data
 - `npm start monitor-nhl:game {GameID}`
 - This will return a box score to the CLI for this particular game
+- If no game data exists you can use Feature 4
+
+## Feature 4: Injest The whole seasons worth of data
+- `npm start ingest-season-data {seasonID}`
+- This season's season ID is 20222023
 
 
 ## Stretch Features

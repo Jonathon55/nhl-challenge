@@ -4,7 +4,7 @@ async function queryGame(gameId) {
   const dataLoader = new DataLoader();
 
   const gameData = await dataLoader.fetchGameData(gameId);
-
+  console.log(gameData, "GameData%%")
   if (gameData && gameData.length > 0) {
     console.log(`Game ID: ${gameId}`);
     console.log('-----------------------------------');

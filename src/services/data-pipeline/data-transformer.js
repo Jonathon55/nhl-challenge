@@ -27,7 +27,7 @@ class DataTransformer {
         goals,
         hits: stats?.hits || 0,
         points,
-        penaltyMinutes: stats?.penaltyMinutes,
+        penaltyMinutes: stats?.penaltyMinutes || 0,
         opponnetTeam: opponentTeam,
       };
     });

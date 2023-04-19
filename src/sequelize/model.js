@@ -8,66 +8,66 @@ const Nhl = sequelize.define('Nhl', {
   },
   gameId: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   playerId: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   playerName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   teamId: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   teamName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   playerAge: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   playerNumber: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   playerPosition: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   assists: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   goals: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   hits: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   points: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   penaltyMinutes: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   opponnetTeam: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   createdAt: {
-    allowNull: false,
+    allowNull: true,
     type: Sequelize.DATE
   },
   updatedAt: {
-    allowNull: false,
+    allowNull: true,
     type: Sequelize.DATE
   }
 });
