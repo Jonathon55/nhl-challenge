@@ -12,7 +12,8 @@ A Suite of Data Pipeline Features using NHL Game Data
 - create `.env` file
 - copy property names over from `.env.example` and set appropriate values, `.env.example` has reasonable defaults for each value unless blank
 - `db:migrate-up` - This will create the database tables locally once connected to a db
-
+- Will need to make sure `redis-server` is installed on your local machine
+- Will need to make sure `Postgres` is installed locally
 ## Feature 1: Monitor game status
 - `npm start monitor-nhl`
 - This will start a process that intermittently checks for live nhl games
@@ -29,17 +30,20 @@ A Suite of Data Pipeline Features using NHL Game Data
 - `npm start monitor-nhl:game {GameID}`
 - This will return a box score to the CLI for this particular game
 - If no game data exists you can use Feature 4
+- An example gameId is `2022030151`
 
 ## Feature 4: Injest The whole seasons worth of data
 - `npm start ingest-season-data {seasonID}`
-- This season's season ID is 20222023
+- This season's season ID is `20222023`
 
 
-## Stretch Features
+## Todo List
 - Return a list of games currently live
-- Load all games of a season and view status
+- More interactive
 - Return a list of game Ids, along with teams and score - for a season, or a particular team
 - Configurable Environments
+- Add much more comments, and functional level documentation
+- Modularize Better
 
 ## Run tests
 This will run jest tests:
